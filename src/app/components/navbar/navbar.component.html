@@ -1,0 +1,13 @@
+<mat-toolbar color="primary">
+    <span>Real Estate App</span>
+    <span style="flex: 1 1 auto;"></span>
+  
+    <!-- Show Login/Register if NOT logged in -->
+    <button mat-button routerLink="/login" *ngIf="!isLoggedIn()">Login</button>
+    <button mat-button routerLink="/register" *ngIf="!isLoggedIn()">Register</button>
+  
+    <!-- Show Dashboard/Logout if logged in -->
+    <button mat-button routerLink="/dashboard" *ngIf="isLoggedIn()">Dashboard</button>
+    <button mat-button (click)="logout()" *ngIf="isLoggedIn()">Logout</button>
+  </mat-toolbar>
+  
