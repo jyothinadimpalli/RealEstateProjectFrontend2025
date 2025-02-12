@@ -1,0 +1,19 @@
+.property-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Space between rows */
+    padding: 16px;
+  }
+  
+  .property-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px; /* Space between property cards */
+  }
+  
+  .property-card {
+    flex: 1; /* Make cards equal width */
+    max-width: 30%; /* Limit card width */
+    min-width: 200px; /* Ensure minimum size */
+  }
+  

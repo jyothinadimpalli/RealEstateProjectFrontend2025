@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5000/api/auth';
+  private apiUrl = 'http://localhost:5000/api';
 
   constructor(
     private http: HttpClient,
@@ -16,7 +17,7 @@ export class AuthService {
   ) {}
 
   login(user: any) {
-    this.http.post(`${this.apiUrl}/login`, user).subscribe(
+    this.http.post(`${this.apiUrl}/auth/login`, user).subscribe(
       (response: any) => {
         console.log('Login successful:', response);
 
@@ -26,7 +27,7 @@ export class AuthService {
         }
 
         this.snackBar.open('Login successful!', 'Close', { duration: 3000 }); // ✅ Success message
-        this.router.navigate(['/dashboard']); // ✅ Redirect to dashboard
+       this.router.navigate(['propertyDashboard']); // ✅ Redirect to dashboard
       },
       (error) => {
         console.error('Login failed:', error);
@@ -37,8 +38,20 @@ export class AuthService {
     );
   }
 
-  register(user: any) {
-    return this.http.post(`${this.apiUrl}/register`, user);
+ register(user: any) {
+    // Make HTTP POST request to the backend
+    this.http.post(`${this.apiUrl}/auth/register`, user)
+      .subscribe(
+        (response) => {
+          console.log('User registered successfully:', response);
+          this.snackBar.open('Registration successful!', 'Close', { duration: 3000 });
+          this.router.navigate(['/login']);  // Redirect to the login page after successful registration
+        },
+        (error) => {
+          console.error('Registration failed:', error.message);
+          this.snackBar.open(`Registration failed: ${error.error.message}`, 'Close', { duration: 3000 });
+        }
+      );
   }
 
   logout() {
@@ -47,6 +60,10 @@ export class AuthService {
     this.snackBar.open('Logged out successfully!', 'Close', { duration: 3000 }); // ✅ Logout message
     this.router.navigate(['/login']);
   }
+// Fetch properties from the API
+fetchProperties(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/properties`);
+}
 
   isLoggedIn(): boolean {
     return localStorage.getItem('token') !== null;

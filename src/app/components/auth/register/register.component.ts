@@ -5,6 +5,7 @@ import { AppCommonModule } from '../../../app-commonmodule';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -23,7 +24,8 @@ export class RegisterComponent {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private snackBar: MatSnackBar  // Inject MatSnackBar for notifications
+    private snackBar: MatSnackBar,
+    private authService: AuthService,  // Inject MatSnackBar for notifications
   ) {}
 
   register() {
@@ -33,19 +35,7 @@ export class RegisterComponent {
       return;
     }
   
-    // Make HTTP POST request to the backend
-    this.http.post('http://localhost:5000/api/register', this.user)
-      .subscribe(
-        (response) => {
-          console.log('User registered successfully:', response);
-          this.snackBar.open('Registration successful!', 'Close', { duration: 3000 });
-          this.router.navigate(['/login']);  // Redirect to the login page after successful registration
-        },
-        (error) => {
-          console.error('Registration failed:', error.message);
-          this.snackBar.open(`Registration failed: ${error.error.message}`, 'Close', { duration: 3000 });
-        }
-      );
+    this.authService.register(this.user);
   }
   validatePhoneNumber(phoneNumber: string): boolean {
     return /^\d{10}$/.test(phoneNumber); // Check if the phone number is a valid 10-digit number

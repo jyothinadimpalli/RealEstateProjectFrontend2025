@@ -1,0 +1,8 @@
+<div class="property-container">
+  <div class="property-row" *ngFor="let row of property | slice:0:property.length | chunk:3">
+    <app-property-card 
+      *ngFor="let item of property"
+      [property]="item">
+    </app-property-card>
+  </div>
+</div>

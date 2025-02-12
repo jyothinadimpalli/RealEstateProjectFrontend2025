@@ -7,7 +7,7 @@
     <button mat-button routerLink="/register" *ngIf="!isLoggedIn()">Register</button>
   
     <!-- Show Dashboard/Logout if logged in -->
-    <button mat-button routerLink="/dashboard" *ngIf="isLoggedIn()">Dashboard</button>
+    <button mat-button routerLink="/propertyDashboard" *ngIf="isLoggedIn()">Dashboard</button>
     <button mat-button (click)="logout()" *ngIf="isLoggedIn()">Logout</button>
   </mat-toolbar>
   
