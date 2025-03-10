@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
+import { Property } from '../models/property';
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +66,10 @@ fetchProperties(): Observable<any[]> {
   return this.http.get<any[]>(`${this.apiUrl}/properties`);
 }
 
+  // Get property by ID
+  getPropertyById(id: string): Observable<Property> {
+    return this.http.get<Property>(`${this.apiUrl}/properties/${id}`);
+  }
   isLoggedIn(): boolean {
     return localStorage.getItem('token') !== null;
   }

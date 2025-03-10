@@ -1,1 +1,33 @@
-<p>property-card-view works!</p>
+<mat-card class="property-card">
+    <img
+      src="https://via.placeholder.com/600x400"
+      alt="Apartment Image"
+      class="property-image"
+    />
+    <mat-card-header>
+      <mat-card-title>{{ propertyDetails.title }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p><strong>Location:</strong> {{ propertyDetails.location.address }}</p>
+      <p><strong>Price:</strong> ₹{{ propertyDetails.price }}</p>
+      <span><mat-icon>Type</mat-icon> Type: {{ propertyDetails.propertyType }}</span>
+      <span><mat-icon>bed</mat-icon> Bedrooms: {{ propertyDetails.bedrooms }}</span>
+      <span><mat-icon>bathtub</mat-icon> Bathrooms: {{ propertyDetails.bathrooms }}</span>
+    </mat-card-content>
+  </mat-card>
+
+<!-- property-card-view.component.html -->
+<h2>{{ propertyDetails?.title }}</h2>
+<p>{{ propertyDetails?.location?.address }}</p>
+
+<google-map
+  [height]="'400px'"
+  [width]="'100%'"
+  [center]="center"
+  [zoom]="zoom"
+>
+  <map-marker
+    [position]="center"
+    [options]="markerOptions"
+  ></map-marker>
+</google-map>
